@@ -1,10 +1,11 @@
 import { Schema, Types, Document, model } from "mongoose";
 import { IUser } from "./user";
+import { IProductCategory } from "./productCategory";
 
 export interface IProduct extends Document<Types.ObjectId> {
   name: string;
   description: string;
-  category: string;
+  category: IProductCategory;
   brand: string;
   price: number;
   discountPercent: number;
@@ -19,7 +20,11 @@ export interface IProduct extends Document<Types.ObjectId> {
 const ProductSchema = new Schema<IProduct>({
   name: { type: String, required: true },
   description: { type: String },
-  category: { type: String, required: true },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: "Product_Category",
+    required: true,
+  },
   brand: { type: String, required: true },
   price: { type: Number, required: true },
   discountPercent: { type: Number, default: 0 },
@@ -27,8 +32,8 @@ const ProductSchema = new Schema<IProduct>({
   remaining: { type: Number, default: 0 },
   visible: { type: Boolean, default: true },
   readCount: { type: Number, default: 0 },
-  createdBy: { type: String, required: true },
-  updatedBy: { type: String },
+  createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  updatedBy: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
 export default model<IProduct>("Product", ProductSchema);
