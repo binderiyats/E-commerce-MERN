@@ -5,7 +5,7 @@ import { IProductCategory } from "./productCategory";
 export interface IProduct extends Document<Types.ObjectId> {
   name: string;
   description: string;
-  category: IProductCategory;
+  category: IProductCategory["_id"];
   brand: string;
   price: number;
   discountPercent: number;
@@ -13,8 +13,8 @@ export interface IProduct extends Document<Types.ObjectId> {
   remaining: number;
   visible: boolean;
   readCount: number;
-  createdBy: IUser;
-  updatedBy: IUser;
+  createdBy: IUser["_id"];
+  updatedBy: IUser["_id"];
 }
 
 const ProductSchema = new Schema<IProduct>({

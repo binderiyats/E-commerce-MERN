@@ -4,7 +4,7 @@ export interface IProductCategory extends Document<Types.ObjectId> {
   name: string;
   slug: string;
   description?: string;
-  productCount?: number;
+  productCount: number;
   createdAt: Date;
   updatedAt: Date;
 }

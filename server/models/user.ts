@@ -1,6 +1,7 @@
 import { Schema, Document, Types, model } from "mongoose";
 
 import { IUserRole } from "./userRole";
+import { IProduct } from "./product";
 
 interface UserAddress {
   country: string;
@@ -17,6 +18,7 @@ export interface IUser extends Document<Types.ObjectId> {
   phone: string;
   email: string;
   address?: UserAddress;
+  ownProducts: IProduct["_id"][];
   password: string;
   order: string[];
   createdAt: Date;
@@ -43,6 +45,7 @@ const UserSchema = new Schema<IUser>(
       apartment: String,
       default: {},
     },
+    ownProducts: { type: [Schema.Types.ObjectId], ref: "Product" },
     password: { type: String, required: true, select: false },
     order: { type: [String], default: [] },
   },
