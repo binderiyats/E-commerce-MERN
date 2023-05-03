@@ -7,6 +7,7 @@ import { MulterError } from "multer";
 import createHttpError, { isHttpError } from "http-errors";
 
 import productCategory from "./routes/productCategory";
+import product from "./routes/product";
 
 const app: Express = express();
 
@@ -35,6 +36,7 @@ app.use(
 //Routes
 
 app.use("/api/products/categories", productCategory);
+app.use("/api/products", product);
 
 app.use((req, res, next) => {
   next(createHttpError(404, "Хүсэлт явуулсан хаяг олдсонгүй."));
