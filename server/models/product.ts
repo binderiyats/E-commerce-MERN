@@ -32,7 +32,7 @@ const ProductSchema = new Schema<IProduct>({
   remaining: { type: Number, default: 0 },
   visible: { type: Boolean, default: true },
   readCount: { type: Number, default: 0 },
-  createdBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  createdBy: { type: Schema.Types.ObjectId, ref: "User" },
   updatedBy: { type: Schema.Types.ObjectId, ref: "User" },
 });
 

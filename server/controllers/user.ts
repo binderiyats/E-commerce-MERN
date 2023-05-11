@@ -11,6 +11,7 @@ interface UserBody {
   email?: string;
   address?: string;
   password?: string;
+  ownProducts?: string;
 }
 
 interface UserParams {
