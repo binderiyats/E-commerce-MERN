@@ -59,10 +59,10 @@ export const createProduct: RequestHandler<
     brand,
     price,
     discountPercent,
-    image,
+
     remaining,
     visible,
-    createdBy,
+    // createdBy,
   } = req.body;
 
   const session = await mongoose.startSession();
@@ -73,19 +73,19 @@ export const createProduct: RequestHandler<
       throw createHttpError(400, "Бүтээгдэхүүний ангилал заавал шаардлагатай");
     if (!price)
       throw createHttpError(400, "Бүтээгдэхүүний үнэ заавал шаардлагатай");
-    if (!image)
-      throw createHttpError(400, "Бүтээгдэхүүний зураг заавал шаардлагатай");
+    // if (!image)
+    //   throw createHttpError(400, "Бүтээгдэхүүний зураг заавал шаардлагатай");
     if (!remaining)
       throw createHttpError(400, "Бүтээгдэхүүний үлдэгдэл заавал шаардлагатай");
-    if (!createdBy)
-      throw createHttpError(
-        400,
-        "Бүтээгдэхүүн оруулсан хэрэглэгч заавал шаардлагатай"
-      );
+    // if (!createdBy)
+    //   throw createHttpError(
+    //     400,
+    //     "Бүтээгдэхүүн оруулсан хэрэглэгч заавал шаардлагатай"
+    //   );
     if (!mongoose.isValidObjectId(category))
       throw createHttpError(400, "Ангилалын id буруу байна.");
-    if (!mongoose.isValidObjectId(createdBy))
-      throw createHttpError(400, "Хэрэглэгчийн id буруу байна.");
+    // if (!mongoose.isValidObjectId(createdBy))
+    //   throw createHttpError(400, "Хэрэглэгчийн id буруу байна.");
 
     //Category, CreatedBy(IUser) transaction хийнэ.
     session.startTransaction();
@@ -100,10 +100,10 @@ export const createProduct: RequestHandler<
       throw createHttpError(404, "Бүтээгдэхүүний ангилал олдсонгүй");
 
     //Хүсэлтээр орж ирсэн хэрэглэгчийн ID бүртгэлтэй эсэхийг шалгана. Байвал цааш үргэлжлүүлнэ.
-    const isUserExist = await UserModel.findById(createdBy, null, {
-      session,
-    });
-    if (!isUserExist) throw createHttpError(404, "Хэрэглэгч олдсонгүй");
+    // const isUserExist = await UserModel.findById(createdBy, null, {
+    //   session,
+    // });
+    // if (!isUserExist) throw createHttpError(404, "Хэрэглэгч олдсонгүй");
 
     const [newProduct] = await ProductModel.create(
       [
@@ -114,10 +114,10 @@ export const createProduct: RequestHandler<
           brand,
           price,
           discountPercent,
-          image,
+
           remaining,
           visible,
-          createdBy,
+          // createdBy,
         },
       ],
       { session }
@@ -128,8 +128,8 @@ export const createProduct: RequestHandler<
     await isCategoryExist.save({ session });
 
     //Шинээр бүтээгдэхүүн үүссэний дараа бүртгэлтэй хэрэглэгчийн бүтээгдэхүүний тоог нэгээр нэмнэ.
-    isUserExist.ownProducts.push(newProduct._id);
-    await isUserExist.save({ session });
+    // isUserExist.ownProducts.push(newProduct._id);
+    // await isUserExist.save({ session });
 
     await session.commitTransaction();
 
