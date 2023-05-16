@@ -35,7 +35,7 @@ const UserSchema = new Schema<IUser>(
         return this.lastName + " " + this.firstName;
       },
     },
-    role: { type: Schema.Types.ObjectId, ref: "User_Role", required: true },
+    role: { type: Schema.Types.ObjectId, ref: "User_Role" },
     phone: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     address: {

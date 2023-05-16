@@ -64,6 +64,8 @@ export const signUp: RequestHandler<
       password: hashedPassword,
     });
 
+    req.session.userId = newUser._id;
+
     res.status(201).json({ message: "Амжилттай бүртгэгдлээ" });
   } catch (error) {
     console.log(error);

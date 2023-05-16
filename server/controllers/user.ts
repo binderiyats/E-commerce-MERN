@@ -18,7 +18,7 @@ interface UserParams {
   id: string;
 }
 //GET ALL USERS
-export const getAllUser: RequestHandler = async (req, res, next) => {
+export const getAllUsers: RequestHandler = async (req, res, next) => {
   try {
     const users = await UserModel.find().populate("role");
     res.status(200).json({ message: "Амжилттай", body: users });
@@ -28,7 +28,7 @@ export const getAllUser: RequestHandler = async (req, res, next) => {
 };
 
 //GET AN USER BY ID
-export const getOneUser: RequestHandler = async (req, res, next) => {
+export const getOneUsers: RequestHandler = async (req, res, next) => {
   const { id } = req.params;
   try {
     // Хүсэлтээр ирсэн id зөв эсэхийг шалгана.
